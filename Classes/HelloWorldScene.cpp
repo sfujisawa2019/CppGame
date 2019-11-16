@@ -129,6 +129,8 @@ bool HelloWorld::init()
 
 void HelloWorld::draw(Renderer* renderer, const Mat4& transform, uint32_t flags)
 {
+	counter++;
+
 	GL::enableVertexAttribs(GL::VERTEX_ATTRIB_FLAG_POSITION| GL::VERTEX_ATTRIB_FLAG_COLOR);
 	m_pProgram->use();
 
@@ -144,10 +146,10 @@ void HelloWorld::draw(Renderer* renderer, const Mat4& transform, uint32_t flags)
 	pos[3] = Vec3(x, y, 0); // âEè„
 
 	// êF
-	color[0] = Vec3(0, 0, 0);
-	color[1] = Vec3(1, 0, 0);
-	color[2] = Vec3(0, 1, 0);
-	color[3] = Vec3(0, 0, 1);
+	color[0] = Vec3(1 - counter / 120.0f, 0, counter / 120.0f);
+	color[1] = Vec3(1 - counter / 120.0f, 0, counter / 120.0f);
+	color[2] = Vec3(1 - counter / 120.0f, 0, counter / 120.0f);
+	color[3] = Vec3(0, 0, 0);
 
 	glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 3, GL_FLOAT, GL_FALSE, 0, pos);
 	glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_COLOR, 3, GL_FLOAT, GL_FALSE, 0, color);
