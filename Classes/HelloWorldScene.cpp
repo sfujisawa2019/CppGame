@@ -119,6 +119,8 @@ bool HelloWorld::init()
 	m_pProgram = new GLProgram;
 	m_pProgram->initWithFilenames("shaders/shader_0tex.vsh", "shaders/shader_0tex.fsh");
 	m_pProgram->bindAttribLocation("a_position", GLProgram::VERTEX_ATTRIB_POSITION);
+	m_pProgram->bindAttribLocation("a_color", GLProgram::VERTEX_ATTRIB_COLOR);
+
 	m_pProgram->link();
 	m_pProgram->updateUniforms();
 
@@ -127,23 +129,29 @@ bool HelloWorld::init()
 
 void HelloWorld::draw(Renderer* renderer, const Mat4& transform, uint32_t flags)
 {
-	GL::enableVertexAttribs(GL::VERTEX_ATTRIB_FLAG_POSITION);
+	GL::enableVertexAttribs(GL::VERTEX_ATTRIB_FLAG_POSITION| GL::VERTEX_ATTRIB_FLAG_COLOR);
 	m_pProgram->use();
 
 	Vec3 pos[4];
+	Vec3 color[4];
 	const float x = 0.7f;
 	const float y = 0.7f;
 
-	// １つ目の三角形
+	// 座標
 	pos[0] = Vec3(-x, -y, 0); // 左下
 	pos[1] = Vec3(-x,  y, 0); // 左上
 	pos[2] = Vec3( x, -y, 0); // 右下
-	// ２つ目の三角形
-	//pos[3] = Vec3(-x, y, 0);
-	//pos[4] = Vec3(x, -y, 0);
 	pos[3] = Vec3(x, y, 0); // 右上
 
+	// 色
+	color[0] = Vec3(0, 0, 0);
+	color[1] = Vec3(1, 0, 0);
+	color[2] = Vec3(0, 1, 0);
+	color[3] = Vec3(0, 0, 1);
+
 	glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 3, GL_FLOAT, GL_FALSE, 0, pos);
+	glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_COLOR, 3, GL_FLOAT, GL_FALSE, 0, color);
+
 
 	// 描画
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
