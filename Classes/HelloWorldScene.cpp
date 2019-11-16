@@ -135,13 +135,13 @@ void HelloWorld::draw(Renderer* renderer, const Mat4& transform, uint32_t flags)
 	const float y = 0.7f;
 
 	// １つ目の三角形
-	pos[0] = Vec3(-x, -y, 0);
-	pos[1] = Vec3(-x,  y, 0);
-	pos[2] = Vec3( x, -y, 0);
+	pos[0] = Vec3(-x, -y, 0); // 左下
+	pos[1] = Vec3(-x,  y, 0); // 左上
+	pos[2] = Vec3( x, -y, 0); // 右下
 	// ２つ目の三角形
 	//pos[3] = Vec3(-x, y, 0);
 	//pos[4] = Vec3(x, -y, 0);
-	pos[3] = Vec3(x, y, 0);
+	pos[3] = Vec3(x, y, 0); // 右上
 
 	glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 3, GL_FLOAT, GL_FALSE, 0, pos);
 
