@@ -207,9 +207,15 @@ xcopy /Y /Q "$(ProjectDir)..\cocos2d\external\uv\prebuilt\win32\*.*" "$(OutDir)"
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Resources\shaders\shader_0tex.fsh" />
+    <None Include="..\Resources\shaders\shader_1tex.fsh" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Resources\shaders\shader_0tex.vsh">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Resources\shaders\shader_1tex.vsh">
       <FileType>Document</FileType>
     </None>
   </ItemGroup>
