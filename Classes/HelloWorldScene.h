@@ -44,8 +44,10 @@ public:
 	// •Ï”éŒ¾
 	cocos2d::GLProgram* m_pProgram;
 
-	int uniform_sampler;
-	cocos2d::Texture2D* m_pTexture;
+	//int uniform_sampler;
+	//cocos2d::Texture2D* m_pTexture;
+
+	int uniform_wvp_matrix;
 
 	int counter = 0;
 };
