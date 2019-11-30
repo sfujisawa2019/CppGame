@@ -160,12 +160,13 @@ void HelloWorld::draw(Renderer* renderer, const Mat4& transform, uint32_t flags)
 	Vec2 uv[6];
 	const float x = 50.0f;
 	const float y = 50.0f;
+	const float z = 50.0f;
 
 	// 座標
-	pos[0] = Vec3(-x, -y, 0); // 左下
-	pos[1] = Vec3(-x,  y, 0); // 左上
-	pos[2] = Vec3( x, -y, 0); // 右下
-	pos[3] = Vec3( x,  y, 0);   // 右上
+	pos[0] = Vec3(-x, -y, z); // 左下
+	pos[1] = Vec3(-x,  y, z); // 左上
+	pos[2] = Vec3( x, -y, z); // 右下
+	pos[3] = Vec3( x,  y, z);   // 右上
 
 	// 色
 	color[0] = Vec4(1, 0, 0, 1);
@@ -205,7 +206,8 @@ void HelloWorld::draw(Renderer* renderer, const Mat4& transform, uint32_t flags)
 	// オイラー角回転の合成
 	matRot = matRotY * matRotX * matRotZ;
 	// 1～3倍で循環
-	float scale = sinf(yaw)+2.0f;
+	//float scale = sinf(yaw)+2.0f;
+	float scale = 2.0f;
 	Mat4::createScale(Vec3(scale, scale, scale), &matScale);
 	matWorld = matTrans * matRot * matScale;
 
@@ -214,6 +216,27 @@ void HelloWorld::draw(Renderer* renderer, const Mat4& transform, uint32_t flags)
 	glUniformMatrix4fv(uniform_wvp_matrix, 1, GL_FALSE, matWVP.m);
 
 	// 描画
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+
+	// 後面
+	pos[0] = Vec3(-x, -y, -z); // 左下
+	pos[1] = Vec3(-x,  y, -z); // 左上
+	pos[2] = Vec3( x, -y, -z); // 右下
+	pos[3] = Vec3( x,  y, -z); // 右上
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+
+	// 左面
+	pos[0] = Vec3(-x, -y, -z); // 左下
+	pos[1] = Vec3(-x, -y, +z); // 左上
+	pos[2] = Vec3(-x, +y, -z); // 右下
+	pos[3] = Vec3(-x, +y, +z); // 右上
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+
+	// 右面
+	pos[0] = Vec3(+x, -y, -z); // 左下
+	pos[1] = Vec3(+x, -y, +z); // 左上
+	pos[2] = Vec3(+x, +y, -z); // 右下
+	pos[3] = Vec3(+x, +y, +z); // 右上
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
 	//glBlendEquation(GL_FUNC_ADD);
