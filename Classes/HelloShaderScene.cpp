@@ -76,15 +76,28 @@ bool HelloShader::init()
 	sprite->setPosition(Vec2(visibleSize.width/2 + origin.x + 200, visibleSize.height/2 + origin.y));
 	this->addChild(sprite, 0);
 
-	// LayerColorの使用例
-	LayerColor* layerColor = LayerColor::create(Color4B(255, 255, 0, 255), 600, 500);
-	this->addChild(layerColor, 2);
+	//// LayerColorの使用例
+	//LayerColor* layerColor = LayerColor::create(Color4B(255, 255, 0, 255), 600, 500);
+	//this->addChild(layerColor, 2);
 
 	// ShaderNodeを作成。描画優先は1
 	Node* node = ShaderNode::create();
 	this->addChild(node, 1);
+	node->setPosition(Vec2(640, 480));
+	node->setRotation(45);
+	//node->setScale(2.0f);
+	node->setContentSize(Size(500, 500));
+	//node->setFlippedX(true);
+	//node->setVisible(false);
+	//node->setColor(Color3B(0, 0, 255));
+	//node->setOpacity(128);
 
-	Sprite* spriteA = Sprite::create("HelloWorld.png");
+	RotateBy* action = RotateBy::create(10, 360);
+	node->runAction(action);
+
+	//Sprite* spriteA = Sprite::create("HelloWorld.png");
+	//spriteA->setPosition(Vec2(200, 0));
+	//node->addChild(spriteA);
 	//Sprite* spriteB;
 	//Sprite* spriteC;
 
