@@ -52,6 +52,11 @@ public:
 
 	// カスタムコマンド
 	cocos2d::CustomCommand _customCommand;
+
+	cocos2d::Vec3 pos[6];
+	cocos2d::Vec4 color[6];
+	cocos2d::Vec2 uv[6];
+	cocos2d::Mat4 matWVP;
 };
 
 #endif // __HELLOWORLD_SCENE_H__

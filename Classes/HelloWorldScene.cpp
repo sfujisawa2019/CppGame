@@ -68,38 +68,15 @@ void HelloWorld::draw(Renderer* renderer, const Mat4& transform, uint32_t flags)
 	_customCommand.func = CC_CALLBACK_0(HelloWorld::onDraw, this, transform, flags);
 	renderer->addCommand(&_customCommand);
 
-}
-
-void HelloWorld::onDraw(const Mat4& transform, uint32_t /*flags*/)
-{
-	counter++;
-	//// 完全上書き描画
-	//GL::blendFunc(GL_ONE, GL_ZERO);
-	//// 加算合成
-	//GL::blendFunc(GL_ONE, GL_ONE);
-	//// 減算合成
-	//glBlendEquation(GL_FUNC_REVERSE_SUBTRACT);
-	//GL::blendFunc(GL_ONE, GL_ONE);
-	// 半透明合成
-	GL::blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	//GL::enableVertexAttribs(GL::VERTEX_ATTRIB_FLAG_POSITION| GL::VERTEX_ATTRIB_FLAG_COLOR | GL::VERTEX_ATTRIB_FLAG_TEX_COORD);
-	GL::enableVertexAttribs(GL::VERTEX_ATTRIB_FLAG_POSITION | GL::VERTEX_ATTRIB_FLAG_COLOR);
-
-	m_pProgram->use();
-
-	Vec3 pos[6];
-	Vec4 color[6];
-	Vec2 uv[6];
 	const float x = 50.0f;
 	const float y = 50.0f;
 	const float z = 50.0f;
 
 	// 座標
-	pos[0] = Vec3(-x, -y, z); // 左下
-	pos[1] = Vec3(-x, y, z); // 左上
-	pos[2] = Vec3(x, -y, z); // 右下
-	pos[3] = Vec3(x, y, z);   // 右上
+	pos[0] = Vec3(-x, -y, 0); // 左下
+	pos[1] = Vec3(-x, y, 0); // 左上
+	pos[2] = Vec3(x, -y, 0); // 右下
+	pos[3] = Vec3(x, y, 0);   // 右上
 
 	// 色
 	color[0] = Vec4(1, 0, 0, 1);
@@ -113,19 +90,12 @@ void HelloWorld::onDraw(const Mat4& transform, uint32_t /*flags*/)
 	uv[2] = Vec2(1, 1); // 右下
 	uv[3] = Vec2(1, 0); // 右上
 
-	glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 3, GL_FLOAT, GL_FALSE, 0, pos);
-	glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_COLOR, 4, GL_FLOAT, GL_FALSE, 0, color);
-	//glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_TEX_COORD, 2, GL_FLOAT, GL_FALSE, 0, uv);
-
-	//glUniform1i(uniform_sampler, 0);
-	//GL::bindTexture2D(m_pTexture->getName());
-
 	static float yaw = 0.0f;
 	//yaw += CC_RADIANS_TO_DEGREES(1.0f);
 	yaw += CC_DEGREES_TO_RADIANS(5.0f);
 	Mat4 matProjection;
 	Mat4 matView;
-	Mat4 matWVP;
+	
 	Mat4 matTrans, matScale, matRot, matWorld;
 	Mat4 matRotX, matRotY, matRotZ;
 
@@ -145,31 +115,28 @@ void HelloWorld::onDraw(const Mat4& transform, uint32_t /*flags*/)
 	matWorld = matTrans * matRot * matScale;
 
 	matWVP = matProjection * matView * matWorld;
+}
+
+void HelloWorld::onDraw(const Mat4& transform, uint32_t /*flags*/)
+{
+	// 半透明合成
+	GL::blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	//GL::enableVertexAttribs(GL::VERTEX_ATTRIB_FLAG_POSITION| GL::VERTEX_ATTRIB_FLAG_COLOR | GL::VERTEX_ATTRIB_FLAG_TEX_COORD);
+	GL::enableVertexAttribs(GL::VERTEX_ATTRIB_FLAG_POSITION | GL::VERTEX_ATTRIB_FLAG_COLOR);
+
+	m_pProgram->use();
+
+	glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 3, GL_FLOAT, GL_FALSE, 0, pos);
+	glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_COLOR, 4, GL_FLOAT, GL_FALSE, 0, color);
+	//glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_TEX_COORD, 2, GL_FLOAT, GL_FALSE, 0, uv);
+
+	//glUniform1i(uniform_sampler, 0);
+	//GL::bindTexture2D(m_pTexture->getName());
 
 	glUniformMatrix4fv(uniform_wvp_matrix, 1, GL_FALSE, matWVP.m);
 
 	// 描画
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-
-	// 後面
-	pos[0] = Vec3(-x, -y, -z); // 左下
-	pos[1] = Vec3(-x, y, -z); // 左上
-	pos[2] = Vec3(x, -y, -z); // 右下
-	pos[3] = Vec3(x, y, -z); // 右上
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-
-	// 左面
-	pos[0] = Vec3(-x, -y, -z); // 左下
-	pos[1] = Vec3(-x, -y, +z); // 左上
-	pos[2] = Vec3(-x, +y, -z); // 右下
-	pos[3] = Vec3(-x, +y, +z); // 右上
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-
-	// 右面
-	pos[0] = Vec3(+x, -y, -z); // 左下
-	pos[1] = Vec3(+x, -y, +z); // 左上
-	pos[2] = Vec3(+x, +y, -z); // 右下
-	pos[3] = Vec3(+x, +y, +z); // 右上
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
 	//glBlendEquation(GL_FUNC_ADD);
