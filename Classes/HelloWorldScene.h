@@ -27,11 +27,9 @@
 
 #include "cocos2d.h"
 
-class HelloWorld : public cocos2d::Scene
+class HelloWorld : public cocos2d::Node
 {
 public:
-    static cocos2d::Scene* createScene();
-
     virtual bool init();
     
     // a selector callback
@@ -41,6 +39,7 @@ public:
     CREATE_FUNC(HelloWorld);
 	// 関数宣言
 	void draw(cocos2d::Renderer* renderer, const cocos2d::Mat4& transform, uint32_t flags);
+	void onDraw(const cocos2d::Mat4& transform, uint32_t /*flags*/);
 	// 変数宣言
 	cocos2d::GLProgram* m_pProgram;
 
@@ -50,6 +49,9 @@ public:
 	int uniform_wvp_matrix;
 
 	int counter = 0;
+
+	// カスタムコマンド
+	cocos2d::CustomCommand _customCommand;
 };
 
 #endif // __HELLOWORLD_SCENE_H__

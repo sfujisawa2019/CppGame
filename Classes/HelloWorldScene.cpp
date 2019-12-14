@@ -27,94 +27,18 @@
 
 USING_NS_CC;
 
-Scene* HelloWorld::createScene()
-{
-    return HelloWorld::create();
-}
-
-// Print useful error message instead of segfaulting when files are not there.
-static void problemLoading(const char* filename)
-{
-    printf("Error while loading: %s\n", filename);
-    printf("Depending on how you compiled you might have to add 'Resources/' in front of filenames in HelloWorldScene.cpp\n");
-}
-
 // on "init" you need to initialize your instance
 bool HelloWorld::init()
 {
     //////////////////////////////
     // 1. super init first
-    if ( !Scene::init() )
+    if ( !Node::init() )
     {
         return false;
     }
 
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
-    /////////////////////////////
-    // 2. add a menu item with "X" image, which is clicked to quit the program
-    //    you may modify it.
-
-    // add a "close" icon to exit the progress. it's an autorelease object
-    auto closeItem = MenuItemImage::create(
-                                           "CloseNormal.png",
-                                           "CloseSelected.png",
-                                           CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
-
-    if (closeItem == nullptr ||
-        closeItem->getContentSize().width <= 0 ||
-        closeItem->getContentSize().height <= 0)
-    {
-        problemLoading("'CloseNormal.png' and 'CloseSelected.png'");
-    }
-    else
-    {
-        float x = origin.x + visibleSize.width - closeItem->getContentSize().width/2;
-        float y = origin.y + closeItem->getContentSize().height/2;
-        closeItem->setPosition(Vec2(x,y));
-    }
-
-    // create menu, it's an autorelease object
-    auto menu = Menu::create(closeItem, NULL);
-    menu->setPosition(Vec2::ZERO);
-    this->addChild(menu, 1);
-
-    /////////////////////////////
-    // 3. add your codes below...
-
-    // add a label shows "Hello World"
-    // create and initialize a label
-
-    auto label = Label::createWithTTF("Hello World", "fonts/Marker Felt.ttf", 24);
-    if (label == nullptr)
-    {
-        problemLoading("'fonts/Marker Felt.ttf'");
-    }
-    else
-    {
-        // position the label on the center of the screen
-        label->setPosition(Vec2(origin.x + visibleSize.width/2,
-                                origin.y + visibleSize.height - label->getContentSize().height));
-
-        // add the label as a child to this layer
-        this->addChild(label, 1);
-    }
-
-    // add "HelloWorld" splash screen"
-    auto sprite = Sprite::create("HelloWorld.png");
-    if (sprite == nullptr)
-    {
-        problemLoading("'HelloWorld.png'");
-    }
-    else
-    {
-        // position the sprite on the center of the screen
-        sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
-
-        // add the sprite as a child to this layer
-        //this->addChild(sprite, 2);
-    }
 
 	m_pProgram = new GLProgram;
 	m_pProgram->initWithFilenames("shaders/shader_0tex.vsh", "shaders/shader_0tex.fsh");
@@ -139,6 +63,15 @@ bool HelloWorld::init()
 
 void HelloWorld::draw(Renderer* renderer, const Mat4& transform, uint32_t flags)
 {
+	// onDrawをカスタムコマンドとして予約
+	_customCommand.init(_globalZOrder, transform, flags);
+	_customCommand.func = CC_CALLBACK_0(HelloWorld::onDraw, this, transform, flags);
+	renderer->addCommand(&_customCommand);
+
+}
+
+void HelloWorld::onDraw(const Mat4& transform, uint32_t /*flags*/)
+{
 	counter++;
 	//// 完全上書き描画
 	//GL::blendFunc(GL_ONE, GL_ZERO);
@@ -151,7 +84,7 @@ void HelloWorld::draw(Renderer* renderer, const Mat4& transform, uint32_t flags)
 	GL::blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	//GL::enableVertexAttribs(GL::VERTEX_ATTRIB_FLAG_POSITION| GL::VERTEX_ATTRIB_FLAG_COLOR | GL::VERTEX_ATTRIB_FLAG_TEX_COORD);
-	GL::enableVertexAttribs(GL::VERTEX_ATTRIB_FLAG_POSITION | GL::VERTEX_ATTRIB_FLAG_COLOR );
+	GL::enableVertexAttribs(GL::VERTEX_ATTRIB_FLAG_POSITION | GL::VERTEX_ATTRIB_FLAG_COLOR);
 
 	m_pProgram->use();
 
@@ -164,9 +97,9 @@ void HelloWorld::draw(Renderer* renderer, const Mat4& transform, uint32_t flags)
 
 	// 座標
 	pos[0] = Vec3(-x, -y, z); // 左下
-	pos[1] = Vec3(-x,  y, z); // 左上
-	pos[2] = Vec3( x, -y, z); // 右下
-	pos[3] = Vec3( x,  y, z);   // 右上
+	pos[1] = Vec3(-x, y, z); // 左上
+	pos[2] = Vec3(x, -y, z); // 右下
+	pos[3] = Vec3(x, y, z);   // 右上
 
 	// 色
 	color[0] = Vec4(1, 0, 0, 1);
@@ -199,7 +132,7 @@ void HelloWorld::draw(Renderer* renderer, const Mat4& transform, uint32_t flags)
 	matProjection = _director->getMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_PROJECTION);
 	matView = _director->getMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW);
 
-	Mat4::createTranslation(Vec3(1280/2.0f, 720/2.0f, 0), &matTrans);
+	Mat4::createTranslation(Vec3(1280 / 2.0f, 720 / 2.0f, 0), &matTrans);
 	Mat4::createRotationZ(0, &matRotZ);
 	Mat4::createRotationX(0, &matRotX);
 	Mat4::createRotationY(yaw, &matRotY);
@@ -220,9 +153,9 @@ void HelloWorld::draw(Renderer* renderer, const Mat4& transform, uint32_t flags)
 
 	// 後面
 	pos[0] = Vec3(-x, -y, -z); // 左下
-	pos[1] = Vec3(-x,  y, -z); // 左上
-	pos[2] = Vec3( x, -y, -z); // 右下
-	pos[3] = Vec3( x,  y, -z); // 右上
+	pos[1] = Vec3(-x, y, -z); // 左上
+	pos[2] = Vec3(x, -y, -z); // 右下
+	pos[3] = Vec3(x, y, -z); // 右上
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
 	// 左面
