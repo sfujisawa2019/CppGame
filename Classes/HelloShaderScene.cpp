@@ -95,9 +95,9 @@ bool HelloShader::init()
 	RotateBy* action = RotateBy::create(10, 360);
 	node->runAction(action);
 
-	//Sprite* spriteA = Sprite::create("HelloWorld.png");
-	//spriteA->setPosition(Vec2(200, 0));
-	//node->addChild(spriteA);
+	Sprite* spriteA = Sprite::create("HelloWorld.png");
+	spriteA->setPosition(Vec2(200, 360));
+	this->addChild(spriteA, 2);
 	//Sprite* spriteB;
 	//Sprite* spriteC;
 
