@@ -67,7 +67,7 @@ bool HelloShader::init()
 
 	Sprite* sprite;
 
-	Director::getInstance()->setClearColor(Color4F(0.0f, 1.0f, 0.0f, 0.0f));
+	Director::getInstance()->setClearColor(Color4F(0.5f, 0.5f, 0.5f, 0.0f));
 
 	// Cocos‚ÌƒƒSƒXƒvƒ‰ƒCƒg‚ðì¬B•`‰æ—Dæ‚Í0
 	//sprite = Sprite::create("HelloWorld.png");
@@ -86,7 +86,7 @@ bool HelloShader::init()
 	node->setPosition(Vec2(640, 360));
 	//node->setRotation(45);
 	//node->setScale(2.0f);
-	node->setContentSize(Size(500, 500));
+	node->setContentSize(Size(1000, 500));
 	//node->setFlippedX(true);
 	//node->setVisible(false);
 	//node->setColor(Color3B(0, 0, 255));

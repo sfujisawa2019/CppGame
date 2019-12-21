@@ -56,7 +56,7 @@ bool ShaderNode::init()
 	uniform_wvp_matrix = glGetUniformLocation(m_pProgram->getProgram(), "u_wvp_matrix");
 	uniform_center = glGetUniformLocation(m_pProgram->getProgram(), "center");
 
-	Director::getInstance()->setClearColor(Color4F(0, 1, 0, 0));
+	//Director::getInstance()->setClearColor(Color4F(0, 1, 0, 0));
 	//Director::getInstance()->setClearColor(Color4F(1, 1, 1, 0));
 
     return true;
