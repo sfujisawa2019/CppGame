@@ -70,11 +70,11 @@ bool HelloShader::init()
 	Director::getInstance()->setClearColor(Color4F(0.0f, 1.0f, 0.0f, 0.0f));
 
 	// Cocos‚ÌƒƒSƒXƒvƒ‰ƒCƒg‚ðì¬B•`‰æ—Dæ‚Í0
-	sprite = Sprite::create("HelloWorld.png");
-	sprite->setColor(Color3B(0xff, 0x00, 0x00));
-	sprite->setScale(2.0f);
-	sprite->setPosition(Vec2(visibleSize.width/2 + origin.x + 200, visibleSize.height/2 + origin.y));
-	this->addChild(sprite, 0);
+	//sprite = Sprite::create("HelloWorld.png");
+	//sprite->setColor(Color3B(0xff, 0x00, 0x00));
+	//sprite->setScale(2.0f);
+	//sprite->setPosition(Vec2(visibleSize.width/2 + origin.x + 200, visibleSize.height/2 + origin.y));
+	//this->addChild(sprite, 0);
 
 	//// LayerColor‚ÌŽg—p—á
 	//LayerColor* layerColor = LayerColor::create(Color4B(255, 255, 0, 255), 600, 500);
@@ -83,21 +83,21 @@ bool HelloShader::init()
 	// ShaderNode‚ðì¬B•`‰æ—Dæ‚Í1
 	node = ShaderNode::create();
 	this->addChild(node, 1);
-	node->setPosition(Vec2(640, 480));
-	node->setRotation(45);
+	node->setPosition(Vec2(640, 360));
+	//node->setRotation(45);
 	//node->setScale(2.0f);
-	node->setContentSize(Size(500, 200));
+	node->setContentSize(Size(1280, 100));
 	//node->setFlippedX(true);
 	//node->setVisible(false);
 	//node->setColor(Color3B(0, 0, 255));
-	node->setOpacity(128);
+	//node->setOpacity(128);
 
-	RotateBy* action = RotateBy::create(10, 360);
-	node->runAction(action);
+	//RotateBy* action = RotateBy::create(10, 360);
+	//node->runAction(action);
 
-	Sprite* spriteA = Sprite::create("HelloWorld.png");
-	spriteA->setPosition(Vec2(200, 360));
-	this->addChild(spriteA, 2);
+	//Sprite* spriteA = Sprite::create("HelloWorld.png");
+	//spriteA->setPosition(Vec2(200, 360));
+	//this->addChild(spriteA, 2);
 	//Sprite* spriteB;
 	//Sprite* spriteC;
 
