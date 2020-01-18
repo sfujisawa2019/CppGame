@@ -11,10 +11,23 @@ void main()
 	// {-250`+250}
 	vec2 p = gl_FragCoord.xy - center;
 
+	
+
 	float col;
 
+	// ‚PDgl_FragCoord.xy‚Æcenter‚Ì‹——£
+	// –”‚ÍpƒxƒNƒgƒ‹‚Ì’·‚³‚Åcol‚Ì”’l‚ğŒˆ‚ß‚é
+	float len = length(p);
+	// ‚QDÅ‘å’l(size_div2‚Ì’·‚³)‚ÅŠ„‚é
+	// col‚É‚¢‚ê‚é
+	col = len / size_div2.x;
+
 	// {-1.0`+1.0}
-	col = p.x / size_div2.x;
+	//col = p.y / size_div2.y;
+	// â‘Î’l‚ğæ‚é{1.0`0.0`1.0}
+	//col = abs(col);
+	// ”’•”½“]{0.0`1.0`0.0}
+	//col = 1.0f - col;
 
 	gl_FragColor = vec4(col, col, col, 1);
 
