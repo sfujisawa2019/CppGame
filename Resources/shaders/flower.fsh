@@ -24,7 +24,16 @@ void main()
 	// 30度をしきい値として塗り分け
 	col = step(30, deg);
 
-	gl_FragColor = vec4(1,1,1,col);
+	// 長さ
+	float len = length(p);
+	// {0～1}
+	float col2 = len/size_div2.x;
+	// 色反転
+	col2 = 1 - col2;
+	// くっきり塗り分け
+	col2 = sign(col2);
+
+	gl_FragColor = vec4(1,1,0,col*col2);
 
 	// 外部から指定された色を乗算
 	gl_FragColor *= v_color;
