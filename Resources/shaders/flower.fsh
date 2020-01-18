@@ -15,7 +15,8 @@ void main()
 
 	float col;
 
-	col = time / 5;
+	float w = sin(time * 3.14);
+	col = w / 2.0 + 0.5;
 
 	gl_FragColor = vec4(col,col,col,1);
 
