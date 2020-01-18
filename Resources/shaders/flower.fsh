@@ -15,26 +15,16 @@ void main()
 
 	float col;
 
-	// １．gl_FragCoord.xyとcenterの距離
-	// 又はpベクトルの長さでcolの数値を決める
-	float len = length(p);
-	// ２．最大値(size_div2の長さ)で割る
-	// colにいれる
-	col = len / size_div2.x;
+	// 角度を求める{-3.14～+3.14}
+	float angle = atan(p.y, p.x);
+	// 度数法に変換{-180～+180}
+	float deg = degrees(angle);
 
-	// {-1.0～+1.0}
-	//col = p.y / size_div2.y;
-	// 絶対値を取る{1.0～0.0～1.0}
-	//col = abs(col);
-	// 白黒反転{0.0～1.0～0.0}
-	col = 1.0f - col;
-	// 大きさを無視する
-	//col = sign(col);
-	// ０より大きければ１にする
-	col = step(0.00001, col);
+	deg = abs(deg);
+	// 30度をしきい値として塗り分け
+	col = step(30, deg);
 
-	// 色を決定
-	gl_FragColor = vec4(col, col, col, 1);
+	gl_FragColor = vec4(1,1,1,col);
 
 	// 外部から指定された色を乗算
 	gl_FragColor *= v_color;
