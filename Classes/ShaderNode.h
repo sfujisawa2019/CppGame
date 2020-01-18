@@ -46,6 +46,7 @@ public:
 	int uniform_wvp_matrix;
 	int uniform_center;
 	int uniform_size_div2;
+	int uniform_time;
 
 	int counter = 0;
 
@@ -56,6 +57,8 @@ public:
 	cocos2d::Vec4 color[6];
 	cocos2d::Vec2 uv[6];
 	cocos2d::Mat4 matWVP;
+	// åoâﬂïbêî
+	float m_time;
 };
 
 #endif // __HELLOWORLD_SCENE_H__
