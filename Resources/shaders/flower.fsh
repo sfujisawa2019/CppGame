@@ -27,8 +27,13 @@ void main()
 	// â‘Î’l‚ğæ‚é{1.0`0.0`1.0}
 	//col = abs(col);
 	// ”’•”½“]{0.0`1.0`0.0}
-	//col = 1.0f - col;
+	col = 1.0f - col;
+	// ‘å‚«‚³‚ğ–³‹‚·‚é
+	//col = sign(col);
+	// ‚O‚æ‚è‘å‚«‚¯‚ê‚Î‚P‚É‚·‚é
+	col = step(0.00001, col);
 
+	// F‚ğŒˆ’è
 	gl_FragColor = vec4(col, col, col, 1);
 
 	// ŠO•”‚©‚çw’è‚³‚ê‚½F‚ğæZ
