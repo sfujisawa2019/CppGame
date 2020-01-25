@@ -18,7 +18,7 @@ void main()
 	p /= size_div2;
 
 	// ’†S‚©‚ç‚ÌŠp“x{-3.14`+3.14}
-	float a = atan(p.y, p.x);
+	float a = atan(p.x, p.y);
 
 	// ’†S‚©‚ç‚Ì‹——£ {0.0`1.0}
 	float r = length(p);
