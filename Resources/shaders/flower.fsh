@@ -20,19 +20,18 @@ void main()
 
 	float col;
 
-	// ‚Q•b‚ÅüŠú‚ªˆêü
-	// [-1.0`+1.0]
-	//float w = sin(time * 3.14 - angle);
-	// sinƒJ[ƒu‚Ì“Á’è‚Ì”ÍˆÍ‚ğs‚Á‚½‚è—ˆ‚½‚è
-	//float w = sin(sin(time*3.14)- angle + 3.14/2.0);
-	float w = cos(sin(time*3.14)- angle);
-	// ‚O‚æ‚èã‚Ì”ÍˆÍ‚Å”g‚ªŒJ‚è•Ô‚·
-	// [0.0`+1.0]
-	//col = w / 2.0 + 0.5;
-	// [-0.5`+0.5]
-	col = w / 2.0;
-	// [0.0`+1.0]
-	col = col + 0.5;
+	// ’†S‚©‚ç‚Ì‹——£ {0.0`1.0}
+	float len = length(p);
+
+	// ”’•”½“] {0.0`1.0}
+	col = 1 - len;
+
+	// ŠÔ‚É‚æ‚é•Ï‰» {0.0`1.0}
+	//float s = sin(sin(time*3.14)+3.14/2.0) / 2.0 + 0.5;
+	float s = cos(sin(time*3.14)) / 2.0 + 0.5;
+
+	// sinƒJ[ƒu‚É‚æ‚é‰e‹¿‚ğ”½‰f
+	col = col * s;
 
 	gl_FragColor = vec4(col,col,col,1);
 
