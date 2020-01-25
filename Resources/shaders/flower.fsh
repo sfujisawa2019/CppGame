@@ -12,11 +12,27 @@ void main()
 	// •`‰æƒsƒNƒZƒ‹‚ÌÀ•W‚Æ}Œ`‚Ì’†SÀ•W‚Ì·‚ğŒvZ
 	// {-250`+250}
 	vec2 p = gl_FragCoord.xy - center;
+	// {-1.0`+1.0}
+	p /= size_div2.x;
+
+	// ’†S‚©‚ç‚ÌŠp“x{-3.14`+3.14}
+	float angle = atan(p.y, p.x);
 
 	float col;
 
-	float w = sin(time * 3.14);
-	col = w / 2.0 + 0.5;
+	// ‚Q•b‚ÅüŠú‚ªˆêü
+	// [-1.0`+1.0]
+	//float w = sin(time * 3.14 - angle);
+	// sinƒJ[ƒu‚Ì“Á’è‚Ì”ÍˆÍ‚ğs‚Á‚½‚è—ˆ‚½‚è
+	//float w = sin(sin(time*3.14)- angle + 3.14/2.0);
+	float w = cos(sin(time*3.14)- angle);
+	// ‚O‚æ‚èã‚Ì”ÍˆÍ‚Å”g‚ªŒJ‚è•Ô‚·
+	// [0.0`+1.0]
+	//col = w / 2.0 + 0.5;
+	// [-0.5`+0.5]
+	col = w / 2.0;
+	// [0.0`+1.0]
+	col = col + 0.5;
 
 	gl_FragColor = vec4(col,col,col,1);
 
