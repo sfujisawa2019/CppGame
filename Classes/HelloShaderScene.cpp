@@ -115,11 +115,11 @@ bool HelloShader::init()
 	listener->onTouchCancelled = CC_CALLBACK_2(HelloShader::onTouchEnded, this);
 	getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 
-	m_pSprite3D = Sprite3D::create("orc/orc.c3t");
+	m_pSprite3D = Sprite3D::create("knight/knight.c3t");
 	m_pSprite3D->setPosition(640, 360);
-	m_pSprite3D->setScale(10.0f);
+	//m_pSprite3D->setScale(10.0f);
 	// YŽ²Žü‚è‚É180“x‰ñ“]
-	m_pSprite3D->setRotation3D(Vec3(0, 180, 0));
+	//m_pSprite3D->setRotation3D(Vec3(0, 180, 0));
 	//m_pSprite3D->setRotation(180);
 	this->addChild(m_pSprite3D, 1);
 
