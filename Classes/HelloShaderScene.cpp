@@ -69,7 +69,7 @@ bool HelloShader::init()
 
 	Director::getInstance()->setClearColor(Color4F(0.5f, 0.5f, 0.5f, 0.0f));
 
-	// Cocosのロゴスプライトを作成。描画優先は0
+	//// Cocosのロゴスプライトを作成。描画優先は0
 	//sprite = Sprite::create("HelloWorld.png");
 	//sprite->setColor(Color3B(0xff, 0x00, 0x00));
 	//sprite->setScale(2.0f);
@@ -83,21 +83,22 @@ bool HelloShader::init()
 	// ShaderNodeを作成。描画優先は1
 	node = ShaderNode::create();
 	this->addChild(node, 1);
-	node->setPosition(Vec2(640, 360));
+	node->setPosition(640, 360);
 	//node->setRotation(45);
 	//node->setScale(2.0f);
 	node->setContentSize(Size(500, 500));
-	//node->setFlippedX(true);
+	//node->setFlippedY(true);
 	//node->setVisible(false);
 	//node->setColor(Color3B(0, 0, 255));
 	//node->setOpacity(128);
 
-	//RotateBy* action = RotateBy::create(10, 360);
+	// アクション
+	//RotateBy* action = RotateBy::create(10, 360 * 10);
 	//node->runAction(action);
 
 	//Sprite* spriteA = Sprite::create("HelloWorld.png");
-	//spriteA->setPosition(Vec2(200, 360));
 	//this->addChild(spriteA, 2);
+	//spriteA->setPosition(400, 360);
 	//Sprite* spriteB;
 	//Sprite* spriteC;
 
@@ -106,7 +107,7 @@ bool HelloShader::init()
 	//scene->addChild(spriteB, 0);
 	//scene->addChild(spriteC, 1);
 
-	// タッチイベントの登録
+	// タッチイベントリスナー登録
 	EventListenerTouchOneByOne* listener = EventListenerTouchOneByOne::create();
 	listener->onTouchBegan = CC_CALLBACK_2(HelloShader::onTouchBegan, this);
 	listener->onTouchMoved = CC_CALLBACK_2(HelloShader::onTouchMoved, this);
@@ -119,14 +120,14 @@ bool HelloShader::init()
 
 bool HelloShader::onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * event)
 {
-	// タッチ座標にノードを移動する
+	// タッチ座標にノードを移動
 	node->setPosition(touch->getLocation());
 	return true;
 }
 
 void HelloShader::onTouchMoved(cocos2d::Touch * touch, cocos2d::Event * event)
 {
-	// タッチ座標にノードを移動する
+	// タッチ座標にノードを移動
 	node->setPosition(touch->getLocation());
 }
 

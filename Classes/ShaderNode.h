@@ -36,13 +36,14 @@ public:
     CREATE_FUNC(ShaderNode);
 	// 関数宣言
 	void draw(cocos2d::Renderer* renderer, const cocos2d::Mat4& transform, uint32_t flags);
-	void onDraw(const cocos2d::Mat4& transform, uint32_t /*flags*/);
+	void onDraw(const cocos2d::Mat4& transform, uint32_t flags);
 	// 変数宣言
 	cocos2d::GLProgram* m_pProgram;
 
-	//int uniform_sampler;
-	//cocos2d::Texture2D* m_pTexture;
+	int uniform_sampler;
+	cocos2d::Texture2D* m_pTexture;
 
+	// uniform番号
 	int uniform_wvp_matrix;
 	int uniform_center;
 	int uniform_size_div2;
@@ -50,14 +51,14 @@ public:
 
 	int counter = 0;
 
-	// カスタムコマンド
 	cocos2d::CustomCommand _customCommand;
 
-	cocos2d::Vec3 pos[6];
-	cocos2d::Vec4 color[6];
-	cocos2d::Vec2 uv[6];
+	cocos2d::Vec3 pos[4];
+	cocos2d::Vec4 color[4];
+	cocos2d::Vec2 uv[4];
 	cocos2d::Mat4 matWVP;
-	// 経過秒数
+
+	// 経過時間[秒]
 	float m_time;
 };
 
