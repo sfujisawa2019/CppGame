@@ -123,7 +123,7 @@ bool HelloShader::init()
 	//m_pSprite3D->setRotation(180);
 	this->addChild(m_pSprite3D, 1);
 
-	Animation3D* animation = Animation3D::create("orc/orc_jump.c3t");
+	Animation3D* animation = Animation3D::create("orc/orc.c3t");
 	Animate3D* animate = Animate3D::create(animation);
 	RepeatForever* repeat = RepeatForever::create(animate);
 	m_pSprite3D->runAction(repeat);
@@ -134,14 +134,14 @@ bool HelloShader::init()
 bool HelloShader::onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * event)
 {
 	// タッチ座標にノードを移動
-	//node->setPosition(touch->getLocation());
+	m_pSprite3D->setPosition(touch->getLocation());
 	return true;
 }
 
 void HelloShader::onTouchMoved(cocos2d::Touch * touch, cocos2d::Event * event)
 {
 	// タッチ座標にノードを移動
-	//node->setPosition(touch->getLocation());
+	m_pSprite3D->setPosition(touch->getLocation());
 }
 
 void HelloShader::onTouchEnded(cocos2d::Touch * touch, cocos2d::Event * event)
@@ -150,7 +150,12 @@ void HelloShader::onTouchEnded(cocos2d::Touch * touch, cocos2d::Event * event)
 
 void HelloShader::menuCloseCallback(Ref* pSender)
 {
-	Director::getInstance()->end();
+	m_pSprite3D->stopAllActions();
+	Animation3D* animation = Animation3D::create("orc/orc_jump.c3t");
+	Animate3D* animate = Animate3D::create(animation);
+	m_pSprite3D->runAction(animate);
+
+	//Director::getInstance()->end();
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	exit(0);
