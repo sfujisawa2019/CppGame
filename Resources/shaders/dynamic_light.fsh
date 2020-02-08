@@ -16,10 +16,7 @@ void main()
 {
 	// 加工の為にUV座標をコピー
 	vec2 texCoord = v_texCoord;
-	// UV座標をずらす
-	texCoord.y += sin(gl_FragCoord.x *0.05 + time * 6.28) * 0.02;
-	// ずらしたUV座標でテクスチャから色を取り出す
-	vec4 texcolor = texture2D(sampler, texCoord);
+	
 
 	float col;
 	float ax=step(0,sin(12.5f*gl_FragCoord.x))*0.5;
@@ -28,10 +25,15 @@ void main()
 	float c=sin(time*3.14-(ax+ay)*3.14);
 	float d=b+(c/2.0+0.5);
 	col=d;
+
+	// UV座標をずらす
+	texCoord.y += c;
+	// ずらしたUV座標でテクスチャから色を取り出す
+	vec4 texcolor = texture2D(sampler, texCoord);
 	
 	// 最終的な色の決定
-	//gl_FragColor = vec4(col, col, col, 1) * texcolor;
+	gl_FragColor = vec4(col, col, col, 1) * texcolor;
 
-	gl_FragColor = texcolor * v_color;
+	//gl_FragColor = texcolor * v_color;
 
 }
